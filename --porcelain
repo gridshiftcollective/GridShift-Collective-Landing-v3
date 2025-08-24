@@ -1,0 +1,9 @@
+* [33me6124f3[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain[m[33m)[m Logo fix
+[31m|[m * [33m7f963d7[m[33m ([m[1;31morigin/main[m[33m, [m[1;31morigin/HEAD[m[33m)[m Adjust landing page balance
+[31m|[m * [33mde168a0[m Remove module and update logo
+[31m|[m * [33m59d21e9[m Refine landing page hero section
+[31m|[m * [33m310d3ac[m Refine landing page design
+[31m|[m[31m/[m  
+* [33me462673[m font and logo fix
+* [33m3b3a8cc[m Initial commit >> merging with the og
+* [33m99700ea[m Use tech stack vite_react_shadcn_ts_20250728_minor

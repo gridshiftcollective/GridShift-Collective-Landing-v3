@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import PageHeader from "@/components/PageHeader";
 import { useState } from "react";
 
 const projects = [
@@ -101,15 +102,10 @@ const Portfolio = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
       
-      {/* Page header */}
-      <section className="pt-20 pb-8 px-6 bg-background">
-        <div className="container mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">Our <span className="text-accent">Portfolio</span></h1>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            Explore our collective achievements and the diverse range of projects that showcase our expertise across different creative disciplines.
-          </p>
-        </div>
-      </section>
+      <PageHeader
+        title={<>Our <span className="text-accent">Portfolio</span></>}
+        description="Explore our collective achievements and the diverse range of projects that showcase our expertise across different creative disciplines."
+      />
 
       {/* Filter Categories */}
       <section className="pb-12 px-6 bg-muted/50">

@@ -71,7 +71,12 @@ const Services = () => {
 
       {/* Module 1: Services Grid */}
       <ContentModule moduleIndex={1}>
-        <GridSection columns="2" gap="lg">
+        <GridSection 
+          title={<>Our <span className="text-accent">Expertise</span></>}
+          description="We specialize in four core creative disciplines, each delivered by passionate experts who live and breathe their craft."
+          columns="2" 
+          gap="lg"
+        >
           <FeatureCards features={services} showFeatureList={true} />
         </GridSection>
       </ContentModule>
@@ -98,46 +103,6 @@ const Services = () => {
         </GridSection>
       </ContentModule>
 
-      {/* Module 3: Stats & Values */}
-      <ContentModule moduleIndex={3}>
-        <GridSection 
-          title="Why Choose GridShift"
-          description="Our collective approach ensures you get the best expertise while maintaining consistent quality and communication."
-          columns="4"
-          gap="md"
-        >
-          {[
-            { icon: Users, title: "Collective Expertise", desc: "Access to diverse skills and perspectives" },
-            { icon: Target, title: "Focused Delivery", desc: "Each specialist handles what they do best" },
-            { icon: Lightbulb, title: "Creative Innovation", desc: "Fresh ideas from multiple creative minds" },
-            { icon: Award, title: "Proven Quality", desc: "Consistent results across all service areas" }
-          ].map((item, index) => (
-            <Card key={index} className="text-center p-6 hover:shadow-lg transition-shadow" data-testid={`value-card-${index}`}>
-              <CardContent className="p-0">
-                <item.icon className="w-8 h-8 text-accent mx-auto mb-4" />
-                <h3 className="font-semibold mb-2">{item.title}</h3>
-                <p className="text-sm text-muted-foreground">{item.desc}</p>
-              </CardContent>
-            </Card>
-          ))}
-        </GridSection>
-      </ContentModule>
-
-      {/* Module 4: CTA Section */}
-      <ContentModule moduleIndex={4}>
-        <div className="text-center">
-          <h2 className="text-2xl md:text-3xl font-bold mb-6" data-testid="cta-title">
-            Ready to Start Your Project?
-          </h2>
-          <p className="text-muted-foreground mb-8 max-w-2xl mx-auto" data-testid="cta-description">
-            Let's discuss your needs and create something amazing together. 
-            Get in touch for a free consultation.
-          </p>
-          <Button size="lg" className="magnetic-hover" data-testid="button-consultation">
-            Get Free Consultation
-          </Button>
-        </div>
-      </ContentModule>
 
       <Footer />
     </div>

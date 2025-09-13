@@ -107,10 +107,11 @@ const Portfolio = () => {
         description="Explore our collective achievements and the diverse range of projects that showcase our expertise across different creative disciplines."
       />
 
-      {/* Filter Categories */}
-      <section className="pb-12 px-6 bg-muted/50">
+      {/* Projects Grid with Filter Categories */}
+      <section className="py-16 px-6 bg-background">
         <div className="container mx-auto">
-          <div className="flex flex-wrap justify-center gap-4">
+          {/* Filter Categories - now part of the same module */}
+          <div className="flex flex-wrap justify-center gap-4 mb-12">
             {categories.map((category) => (
               <Button
                 key={category}
@@ -123,12 +124,7 @@ const Portfolio = () => {
               </Button>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Projects Grid */}
-      <section className="pb-16 px-6 bg-background">
-        <div className="container mx-auto">
+          
           <div className={`grid md:grid-cols-2 lg:grid-cols-3 gap-8 transition-all duration-200 ${isGridAnimating ? 'opacity-0 scale-95' : 'opacity-100 scale-100'}`}>
             {filteredProjects.map((project, index) => (
               <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow group">
@@ -181,19 +177,6 @@ const Portfolio = () => {
               </Card>
             ))}
           </div>
-        </div>
-      </section>
-
-      {/* Call to Action */}
-      <section className="py-16 px-6 bg-muted/50">
-        <div className="container mx-auto text-center">
-          <h2 className="text-3xl font-bold mb-6">Ready to Start Your Project?</h2>
-          <p className="text-muted-foreground mb-8 max-w-2xl mx-auto">
-            Join our growing list of satisfied clients. Let's discuss how we can bring your vision to life.
-          </p>
-          <Button size="lg" className="animate-pulse">
-            Get In Touch
-          </Button>
         </div>
       </section>
 

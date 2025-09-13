@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import PageHeader from "@/components/PageHeader";
 
 const teamMembers = [
   {
@@ -40,16 +41,10 @@ const About = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
       
-      {/* Page header */}
-      <section className="pt-20 pb-8 px-6 bg-background">
-        <div className="container mx-auto text-center">
-          <h1 className="text-4xl md:text-6xl font-bold mb-4">About <span className="text-accent">GridShift</span></h1>
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">
-            We are a curated collective of independent creatives who believe that the best work 
-            happens when diverse talents unite under a shared vision of excellence.
-          </p>
-        </div>
-      </section>
+      <PageHeader
+        title={<>About <span className="text-accent">GridShift</span></>}
+        description="We are a curated collective of independent creatives who believe that the best work happens when diverse talents unite under a shared vision of excellence."
+      />
 
       {/* Our Philosophy */}
       <section className="py-16 px-6">

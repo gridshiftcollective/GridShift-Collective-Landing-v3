@@ -2,7 +2,7 @@ import { ReactNode } from "react";
 
 interface GridSectionProps {
   children: ReactNode;
-  title?: string;
+  title?: string | ReactNode;
   description?: string;
   columns?: "1" | "2" | "3" | "4";
   gap?: "sm" | "md" | "lg";

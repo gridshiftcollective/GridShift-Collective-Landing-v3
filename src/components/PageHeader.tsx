@@ -1,18 +1,21 @@
-import React from "react";
+import { ReactNode } from "react";
 
-type Props = {
-  title: string;
-  subtitle?: string;
-};
+interface PageHeaderProps {
+  title: ReactNode;
+  description: string;
+  className?: string;
+}
 
-const PageHeader = ({ title, subtitle }: Props) => {
+const PageHeader = ({ title, description, className = "" }: PageHeaderProps) => {
   return (
-    <section className="pt-20 pb-8 px-6 bg-background">
+    <section className={`pt-20 pb-12 px-6 bg-background ${className}`}>
       <div className="container mx-auto text-center">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4">{title}</h1>
-        {subtitle && (
-          <p className="text-lg text-muted-foreground max-w-3xl mx-auto">{subtitle}</p>
-        )}
+        <h1 className="text-4xl md:text-5xl font-bold mb-6 smooth-reveal" data-testid="page-title">
+          {title}
+        </h1>
+        <p className="text-lg text-muted-foreground max-w-3xl mx-auto smooth-reveal smooth-reveal-delay-1" data-testid="page-description">
+          {description}
+        </p>
       </div>
     </section>
   );

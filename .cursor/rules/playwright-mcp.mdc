@@ -1,0 +1,160 @@
+---
+description: "Map Playwright actions and common CLI workflows to MCP Playwright tools; no shell commands included. Use this rule when converting CLI-based Playwright flows into MCP tool sequences."
+globs: *.html
+alwaysApply: false
+---
+### MCP Playwright — Navigation & Action Mapping
+
+This rule maps common Playwright actions and typical CLI workflows to the exact MCP Playwright tool names and ordered call sequences. **Do not include shell commands or npm scripts**; instead reference the MCP tool(s) to call for each step.
+
+- **Intended use**: Convert community Playwright examples (e.g., codegen sessions, test runs, headless runs, screenshots) into MCP-driven sequences.
+- **Scope**: Navigation, element interaction, screenshots, network helpers, codegen/session lifecycle, diagnostics, and artifact collection.
+
+## Tool mapping (Playwright concept -> MCP tool name)
+
+- **Start codegen / session**: `mcp_playwright_start_codegen_session`
+- **End codegen / finalize**: `mcp_playwright_playwright_end_codegen_session`
+- **Navigate / open page**: `mcp_playwright_playwright_navigate`
+- **Click**: `mcp_playwright_playwright_click`
+- **Click inside iframe**: `mcp_playwright_playwright_iframe_click`
+- **Fill input**: `mcp_playwright_playwright_fill`
+- **Fill inside iframe**: `mcp_playwright_playwright_iframe_fill`
+- **Select option**: `mcp_playwright_playwright_select`
+- **Hover**: `mcp_playwright_playwright_hover`
+- **Upload file**: `mcp_playwright_playwright_upload_file`
+- **Drag and drop**: `mcp_playwright_playwright_drag`
+- **Screenshot (page / element)**: `mcp_playwright_playwright_screenshot`
+- **Save page as PDF**: `mcp_playwright_playwright_save_as_pdf`
+- **Get visible HTML**: `mcp_playwright_playwright_get_visible_html`
+- **Get visible text**: `mcp_playwright_playwright_get_visible_text`
+- **Console logs**: `mcp_playwright_playwright_console_logs`
+- **Evaluate JS**: `mcp_playwright_playwright_evaluate`
+- **HTTP helpers (get/post/put/patch/delete)**: `mcp_playwright_playwright_get`, `mcp_playwright_playwright_post`, `mcp_playwright_playwright_put`, `mcp_playwright_playwright_patch`, `mcp_playwright_playwright_delete`
+- **Expect / assert network response**: `mcp_playwright_playwright_expect_response` -> `mcp_playwright_playwright_assert_response`
+- **Tab control / click and switch**: `mcp_playwright_playwright_click_and_switch_tab`
+- **Navigate back / forward**: `mcp_playwright_playwright_go_back`, `mcp_playwright_playwright_go_forward`
+- **Close browser / session**: `mcp_playwright_playwright_close`
+
+## Canonical sequences (pseudocode using MCP tools)
+
+1. Recording or generating a test (equivalent to `codegen`):
+   - `mcp_playwright_start_codegen_session` -> obtain `sessionId`
+   - `mcp_playwright_playwright_navigate` (url, viewport, waitUntil)
+   - perform interactions using the click/fill/select/hover tools
+   - capture artifacts with `mcp_playwright_playwright_screenshot` or `mcp_playwright_playwright_save_as_pdf`
+   - `mcp_playwright_playwright_end_codegen_session` (sessionId)
+   - `mcp_playwright_playwright_close`
+
+2. Headless test-run style flow (single-run verification):
+   - `mcp_playwright_playwright_navigate` (url, headless=true, timeout)
+   - optional `mcp_playwright_playwright_expect_response` (id, url pattern)
+   - interact (click/fill/select)
+   - `mcp_playwright_playwright_assert_response` (id, expected value)
+   - take screenshots / gather HTML via `mcp_playwright_playwright_screenshot` and `mcp_playwright_playwright_get_visible_html`
+
+3. Artifact collection and diagnostics:
+   - capture screenshot: `mcp_playwright_playwright_screenshot`
+   - retrieve page HTML: `mcp_playwright_playwright_get_visible_html`
+   - retrieve console logs: `mcp_playwright_playwright_console_logs`
+   - store or reference artifact paths returned by the MCP tool responses (do not hardcode host paths)
+
+## Converting common CLI flags -> MCP parameters (notes)
+
+- `--headless` => pass `headless: true` (or `headless: false`) as a session or navigate option where available, or use the `playwright_navigate` headless property if supported.
+- `--timeout` => pass `timeout` parameter to `mcp_playwright_playwright_navigate` or apply logic using `mcp_playwright_playwright_expect_response`/assert patterns.
+- `--device` / presets => set `viewport` width/height and user-agent via `mcp_playwright_playwright_navigate` options or run an initial `mcp_playwright_playwright_evaluate` to emulate device if needed.
+- `codegen` -> `mcp_playwright_start_codegen_session` + ordered interactions + `mcp_playwright_playwright_end_codegen_session`.
+
+## Debugging & Pitfalls
+
+- Prefer `waitUntil` strategies and `expect_response` workflows over fixed sleeps.
+- Local file paths must be passed as `file:///absolute/path/to/file.html` to `mcp_playwright_playwright_navigate`.
+- Artifact locations are environment-specific; use returned paths from MCP tools rather than assuming local filesystem layout.
+- If a community example shows `npx playwright test --workers=4`, map concurrency to multiple parallel MCP sessions (start separate sessions) rather than a single tool call.
+
+## What to include verbatim in your rule file
+
+- A short header: "This RLE maps Playwright actions to MCP tool calls; do not include shell commands."
+- A mapping table (Playwright action -> MCP tool name) — keep it up-to-date with the MCP interface.
+- Example sequences (start codegen, navigate, interact, screenshot, end) using only tool names.
+- A debugging/artifact collection section with the exact MCP tools to call for logs, HTML, screenshots, and PDFs.
+- A short acceptance checklist to validate the RLE before use.
+
+## Acceptance checklist
+
+- [ ] Each Playwright action used by your team is mapped to an MCP tool in this rule.
+- [ ] No shell commands (`npx`, `node`, `playwright`) are present in the file.
+- [ ] Examples show ordered tool call sequences (start -> navigate -> interact -> capture -> end).
+- [ ] Notes for converting CLI flags are present and clear.
+
+---
+If you want this rule written in a different format (YAML/JSON) or copied into another directory, request the target path and format.
+
+## MCP server runner configuration (derived from .cursor/mcp.json)
+
+The following snippet documents the MCP server command and arguments that should be used to start the Playwright MCP server when orchestrating Playwright flows from this rule. This is documentation only; the rule must not include raw shell commands for execution in MCP workflows, but including these values helps models and automation decide how to launch the server.
+
+```json
+{
+  "mcpServers": {
+    "playwright": {
+      "command": "npx",
+      "args": ["-y", "@executeautomation/playwright-mcp-server"]
+    }
+  }
+}
+```
+
+Notes:
+- This is a reference for automation: use the `command` and `args` above when a controller needs to start the MCP server outside of the MCP call surface.
+- Do NOT embed `npx` or shell invocations inside ordered MCP tool examples above; instead, map CLI intent to the appropriate MCP tools.
+
+## Playwright MCP: purpose & quick reference
+
+This section provides a concise summary of the Playwright MCP purpose and a short usage reference. For canonical mappings, ordered sequences, and full parameter lists, use the sections above in this rule or consult the global MCP summaries file at `.cursor/mcp.mdc`.
+
+**Purpose:** Expose deterministic browser automation (navigation, interaction, assertions, artifact capture) through an RPC surface so controllers can run reproducible browser-driven flows without shell commands.
+
+**Quick usage flow:**
+- For recording/codegen: `mcp_playwright_start_codegen_session` -> interactions -> `mcp_playwright_playwright_end_codegen_session` -> `mcp_playwright_playwright_close`.
+- For single-run verification: `mcp_playwright_playwright_navigate` -> optional `mcp_playwright_playwright_expect_response` -> interactions -> `mcp_playwright_playwright_assert_response` -> artifact capture.
+
+**Short best practices:**
+- Prefer `expect_response` + `assert_response` over sleeps; pass absolute paths for file uploads; treat returned artifact paths as environment-specific; run separate MCP sessions for parallelization.
+
+**Initializing Playwright**
+- When a developer or automation needs to start the web application that Playwright will exercise, start the app on a known HTTP port and ensure the dev server is reachable before invoking MCP Playwright tools. The rule below **documents recommended, explicit commands and options** to start the app (this is documentation only; do not embed raw shell commands in MCP-driven sequences).
+
+- Recommended local development commands (choose the one matching your stack):
+  - **Next.js (recommended for dev with port)**: `PORT=3000 npm run dev` — starts the Next.js dev server on `http://localhost:3000`.
+  - **Create React App / Vite (dev)**: `PORT=3000 npm run dev` or `PORT=3000 npm start` — starts the dev server on `http://localhost:3000`.
+  - **Static build + serve (production-like)**:
+    - Build: `npm run build` (or `npm run build --if-present`)
+    - Serve on port 3000: `npx serve -s build -l 3000` (or any static server that binds to the given port).
+  - **Custom server (explicit port)**: `node server.js --port 3000` or `PORT=3000 node server.js` — ensure the server binds to the provided `PORT` env var.
+
+- Recommended CI/automation pattern:
+  1. Build the site: `npm ci && npm run build` (install clean dependencies, then build).
+  2. Start a static server bound to a fixed port: `npx serve -s build -l 3000`.
+  3. Wait for `http://localhost:3000` to respond (HTTP 200) before calling any MCP Playwright navigate tools.
+
+- Playwright configuration note (playwright.config.*): set `use.baseURL` or pass the full `url` to `mcp_playwright_playwright_navigate`. Example `playwright.config.ts` snippet for local runs:
+
+```typescript
+import { defineConfig } from '@playwright/test';
+
+export default defineConfig({
+  webServer: {
+    command: 'npm run dev',
+    url: 'http://localhost:3000',
+    reuseExistingServer: !process.env.CI,
+  },
+  use: { baseURL: 'http://localhost:3000' },
+});
+```
+
+- Guidance for MCP controllers (implementation note): controllers should ensure the target host/port is reachable before invoking `mcp_playwright_playwright_navigate`. Prefer health-check polling with a short timeout rather than fixed sleeps.
+
+- Example health-check loop (documentation only): try HTTP GET `http://localhost:3000/` until you receive 200 OK, timeout after X seconds.
+
+- Port recommendations: pick a stable, non-privileged port (e.g., `3000`, `5173`, `8080`) and document it in your project `README` so automation and developers use the same port.

@@ -9,7 +9,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="md:col-span-2">
             <img 
-              src="/logos/gridshift-type-t-v2.png" 
+              src="/logos/GridShift-Type-T%20v2.png" 
               alt="GridShift Logo" 
               className="h-12 md:h-16 mb-4"
             />
@@ -18,12 +18,12 @@ const Footer = () => {
               and visual stories for brands worldwide.
             </p>
             <div className="flex gap-3">
-              <a href="https://www.linkedin.com" aria-label="GridShift LinkedIn" target="_blank" rel="noreferrer noopener">
+              <a href="https://www.linkedin.com/company/gridshiftcollective" aria-label="GridShift LinkedIn" target="_blank" rel="noreferrer noopener">
                 <Button asChild variant="ghost" size="sm" className="p-2">
                   <span aria-hidden="true"><Linkedin className="w-5 h-5" /></span>
                 </Button>
               </a>
-              <a href="mailto:hello@gridshift.dev" aria-label="Email GridShift">
+              <a href="mailto:gridshiftcollective@gmail.com" aria-label="Email GridShift">
                 <Button asChild variant="ghost" size="sm" className="p-2">
                   <span aria-hidden="true"><Mail className="w-5 h-5" /></span>
                 </Button>

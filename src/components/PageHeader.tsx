@@ -8,10 +8,10 @@ interface PageHeaderProps {
 
 const PageHeader = ({ title, description, className = "" }: PageHeaderProps) => {
   return (
-    <section className={`relative min-h-[calc(60vh-64px)] flex items-center justify-center pt-16 pb-20 overflow-hidden bg-background ${className}`}>
+    <section className={`relative min-h-[calc(60vh-64px)] flex items-center justify-center pt-16 pb-20 overflow-hidden bg-background hero-gradient ${className}`}>
       {/* Background elements similar to Hero */}
       <div className="absolute inset-0 grid-pattern opacity-20"></div>
-      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/60 to-accent/5 bg-drift"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/50 to-accent/5 bg-drift mix-blend-overlay"></div>
       
       <div className="container mx-auto px-6 text-center relative z-10">
         <h1 className="text-4xl md:text-5xl font-bold mb-6 smooth-reveal" data-testid="page-title">

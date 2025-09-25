@@ -1,0 +1,30 @@
+---
+alwaysApply: true
+description: "Global MCP summaries and usage notes for the project's MCP servers. Add brief purpose and usage guidance for each MCP used in this repo."
+globs: *.md
+---
+
+### MCP Global Summary
+
+This file centralizes short-purpose summaries and usage instructions for active MCP servers referenced in the repository. Each MCP entry should include: purpose, when to use it, quick-start sequence using MCP tools (no shell commands), and links to any detailed rule files under `.cursor/rules/`.
+
+---
+
+## Playwright MCP (summary)
+
+**Purpose:** Run deterministic browser automation via RPC calls for navigation, DOM interactions, network assertions, and artifact capture without invoking shell commands.
+
+**When to use:** When you need automated browser flows from higher-level controllers, reproducible codegen/recording, or to capture page artifacts and logs in CI/automation contexts.
+
+**Quick sequence:**
+- Start codegen session: `mcp_playwright_start_codegen_session`
+- Navigate & interact: `mcp_playwright_playwright_navigate`, `mcp_playwright_playwright_click`, `mcp_playwright_playwright_fill`, ...
+- Capture artifacts: `mcp_playwright_playwright_screenshot`, `mcp_playwright_playwright_get_visible_html`
+- End codegen / close: `mcp_playwright_playwright_end_codegen_session`, `mcp_playwright_playwright_close`
+
+**Reference rule:** `.cursor/rules/mcp-playwright-navigation.mdc`
+
+---
+
+If you add new MCP servers, append a short summary here and create a detailed rule under `.cursor/rules/`.
+

@@ -2,7 +2,7 @@ import { Users, Target, Lightbulb, Award } from "lucide-react";
 
 const About = () => {
   return (
-    <section className="py-24 bg-background">
+    <section className="py-48 bg-background">
       <div className="container mx-auto px-6">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* Content */}

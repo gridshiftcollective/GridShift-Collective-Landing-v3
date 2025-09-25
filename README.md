@@ -60,6 +60,135 @@ This project is built with:
 - shadcn-ui
 - Tailwind CSS
 
+## Content Guide
+
+This project uses a content management system based on JSON files for team members and Markdown files for portfolio projects. This allows non-technical users to add and update content without touching code.
+
+### Adding Team Members
+
+1. Create a new JSON file in `src/content/team/` using the naming pattern: `<member-slug>.json`
+2. Use the following template structure:
+
+```json
+{
+  "id": "your-slug-here",
+  "slug": "your-slug-here",
+  "name": "Your Full Name",
+  "role": "Your Job Title",
+  "pronouns": "your/pronouns",
+  "location": "City, Country",
+  "bio": "Brief description of your expertise and passion.",
+  "image": "/images/team/your-slug.jpg",
+  "skills": ["Skill 1", "Skill 2", "Skill 3"],
+  "tags": ["tag1", "tag2"],
+  "links": {
+    "website": "https://yourwebsite.com",
+    "github": "https://github.com/username",
+    "linkedin": "https://linkedin.com/in/username"
+  },
+  "availability": "open",
+  "email": "your.email@example.com",
+  "startDate": "2024-01-01",
+  "draft": false,
+  "hidden": false,
+  "featuredOnHome": true,
+  "homeWeight": 50,
+  "order": 5,
+  "seo": {
+    "title": "Your Name — Job Title",
+    "description": "Brief SEO description",
+    "ogImage": "/images/team/your-slug-og.jpg"
+  },
+  "meta": {
+    "updatedAt": "2024-01-01",
+    "createdBy": "your-username"
+  }
+}
+```
+
+3. Place member photo in `public/images/team/<slug>.jpg`
+4. Set `featuredOnHome: true` and adjust `homeWeight` (higher = more prominent) to appear on homepage
+5. Set `draft: true` to hide during development or `hidden: true` to permanently exclude
+
+### Adding Portfolio Projects
+
+1. Create a new Markdown file in `src/content/portfolio/` using the naming pattern: `<yyyy-mm>-<project-slug>.md`
+2. Use the following frontmatter template:
+
+```markdown
+---
+id: "2024-01-your-project-slug"
+slug: "your-project-slug"
+title: "Your Project Title"
+client: "Client Name"
+category: "Web Development"
+date: "2024-01-15"
+startDate: "2024-01-01"
+endDate: "2024-01-15"
+status: "launched"
+summary: "Brief project summary for previews."
+technologies: ["React", "TypeScript", "Tailwind"]
+tags: ["web-development", "react"]
+authors: ["member-slug-1", "member-slug-2"]
+image: "/images/portfolio/your-slug/cover.jpg"
+gallery:
+  - "/images/portfolio/your-slug/image1.jpg"
+  - "/images/portfolio/your-slug/image2.png"
+links:
+  site: "https://project-site.com"
+  repo: "https://github.com/org/repo"
+  caseStudy: "https://example.com/case-study"
+draft: false
+hidden: false
+featuredOnHome: true
+homeWeight: 75
+order: 10
+seo:
+  title: "Project Title — Case Study"
+  description: "SEO description for the project"
+  ogImage: "/images/portfolio/your-slug/og.jpg"
+meta:
+  updatedAt: "2024-01-15"
+  createdBy: "your-username"
+---
+
+## Project Overview
+Detailed project description and goals.
+
+## Role & Responsibilities
+- What you did
+- Technologies used
+- Challenges faced
+
+## Highlights
+- Key achievements
+- Metrics/results
+
+## Challenges & Solutions
+- Problem: Description
+- Solution: How you solved it
+
+## Outcomes
+- Results and impact
+
+## Media
+![Project Image](/images/portfolio/your-slug/image.jpg)
+```
+
+3. Place project images in `public/images/portfolio/<slug>/`
+4. Set `featuredOnHome: true` and adjust `homeWeight` to appear on homepage
+5. Reference team member slugs in the `authors` array
+6. Use `order` field for custom sorting (higher = appears first)
+
+### Content Management Rules
+
+- **Slugs**: Use kebab-case (lowercase, hyphens) for all slugs
+- **Images**: Store in `public/images/team/<slug>/` or `public/images/portfolio/<slug>/`
+- **Dates**: Use YYYY-MM-DD format
+- **Sorting**: Homepage previews use `homeWeight` desc, then `order` desc, then `date` desc
+- **Visibility**: Set `draft: true` to exclude from builds, `hidden: true` for permanent exclusion
+- **Required Fields**: `id`, `slug`, `name/title`, `image` are required for all content
+
 ## How can I deploy this project?
 
 Simply open [Lovable](https://lovable.dev/projects/60e31cba-27a6-4cfe-af75-257d35fbc3ef) and click on Share -> Publish.

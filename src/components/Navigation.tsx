@@ -12,7 +12,7 @@ const Navigation = () => {
     { name: "Services", path: "/services" },
     { name: "Portfolio", path: "/portfolio" },
     { name: "About Us", path: "/about" },
-    { name: "Blog", path: "/blog" },
+    // Blog temporarily hidden from header
     { name: "Contact", path: "/contact" },
   ];
 
@@ -25,7 +25,7 @@ const Navigation = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <img 
-              src="/logos/gridshift-mark-t-v2.png" 
+              src="/logos/GridShift-Mark-T%20v2.png" 
               alt="GridShift Logo" 
               className="h-8 md:h-10"
             />

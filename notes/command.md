@@ -3,6 +3,9 @@ tmux new -s Ali2
 tmux attach -t Ali2
 tmux attach -t Ali1
 
+# NPM
+npm run dev
+
 # File Size
 du -sh /home/freqtrade/user_data/Subproject-HMM/.venv
 

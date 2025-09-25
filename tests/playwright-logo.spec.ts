@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('logo-to-title size ratio is reasonable', async ({ page }) => {
-  await page.goto('https://gridshift.vercel.app');
+  await page.goto('/');
   const heroLogo = await page.locator('img[alt="GridShift"]').first();
   const navLogo = await page.locator('img[alt="GridShift Logo"]').first();
   const headline = await page.locator('h1').first();

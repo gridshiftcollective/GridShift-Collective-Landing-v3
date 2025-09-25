@@ -1,5 +1,7 @@
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
+import ContentModule from "@/components/ContentModule";
+import PageHeader from "@/components/PageHeader";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
@@ -10,56 +12,47 @@ const Contact = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navigation />
-      
-      {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-gradient-to-br from-background via-secondary/20 to-background">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="text-center mb-12 animate-fade-in">
-            <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 animate-slide-up">
-              Let's <span className="text-accent">Collaborate</span>
-            </h1>
-            <p className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto px-4 animate-fade-in" style={{animationDelay: '0.2s'}}>
-              Ready to bring your vision to life? Get in touch with our collective 
-              and let's create something extraordinary together.
-            </p>
-          </div>
-        </div>
-      </section>
 
-      {/* Main Content */}
-      <section className="py-12 md:py-24">
+      {/* Page header for contact */}
+      <PageHeader
+        title={<>Let's <span className="text-accent">Collaborate</span></>}
+        description="Ready to bring your vision to life? Get in touch with our collective and let's create something extraordinary together."
+      />
+
+      {/* Main contact module - unified dark sections with breathing space */}
+      <ContentModule moduleIndex={1} paddingClass="py-20 md:py-24" className="bg-background">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-start">
             
-            {/* Contact Information */}
-            <div className="space-y-8">
+            {/* Contact Information - spaced and visual */}
+            <div className="space-y-10">
               <div>
-                <h2 className="text-xl md:text-2xl font-semibold mb-6 md:mb-8">Get in Touch</h2>
-                
-                <div className="space-y-4 md:space-y-6">
-                  <div className="flex items-center gap-3 md:gap-4 p-4 rounded-lg hover:bg-secondary/50 transition-colors">
-                    <div className="w-10 h-10 md:w-12 md:h-12 bg-accent/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Mail className="w-5 h-5 md:w-6 md:h-6 text-accent" />
+                <h2 className="text-2xl md:text-3xl font-semibold mb-6">Get in Touch</h2>
+
+                <div className="space-y-6">
+                  <div className="flex items-start gap-4 p-4 rounded-lg hover:bg-secondary/40 transition-colors">
+                    <div className="w-14 h-14 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Mail className="w-6 h-6 text-accent" />
                     </div>
                     <div className="min-w-0">
                       <h4 className="font-medium text-sm md:text-base">Email</h4>
-                      <p className="text-muted-foreground text-sm md:text-base break-all">hello@gridshift.dev</p>
+                      <p className="text-muted-foreground text-sm md:text-base break-all">gridshiftcollective@gmail.com</p>
                     </div>
                   </div>
-                  
-                  <div className="flex items-center gap-3 md:gap-4 p-4 rounded-lg hover:bg-secondary/50 transition-colors">
-                    <div className="w-10 h-10 md:w-12 md:h-12 bg-accent/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <MessageSquare className="w-5 h-5 md:w-6 md:h-6 text-accent" />
+
+                  <div className="flex items-start gap-4 p-4 rounded-lg hover:bg-secondary/40 transition-colors">
+                    <div className="w-14 h-14 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <MessageSquare className="w-6 h-6 text-accent" />
                     </div>
                     <div className="min-w-0">
                       <h4 className="font-medium text-sm md:text-base">Discord</h4>
                       <p className="text-muted-foreground text-sm md:text-base">Join our community</p>
                     </div>
                   </div>
-                  
-                  <div className="flex items-center gap-3 md:gap-4 p-4 rounded-lg hover:bg-secondary/50 transition-colors">
-                    <div className="w-10 h-10 md:w-12 md:h-12 bg-accent/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <MapPin className="w-5 h-5 md:w-6 md:h-6 text-accent" />
+
+                  <div className="flex items-start gap-4 p-4 rounded-lg hover:bg-secondary/40 transition-colors">
+                    <div className="w-14 h-14 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <MapPin className="w-6 h-6 text-accent" />
                     </div>
                     <div className="min-w-0">
                       <h4 className="font-medium text-sm md:text-base">Location</h4>
@@ -67,9 +60,9 @@ const Contact = () => {
                     </div>
                   </div>
 
-                  <div className="flex items-center gap-3 md:gap-4 p-4 rounded-lg hover:bg-secondary/50 transition-colors">
-                    <div className="w-10 h-10 md:w-12 md:h-12 bg-accent/20 rounded-lg flex items-center justify-center flex-shrink-0">
-                      <Clock className="w-5 h-5 md:w-6 md:h-6 text-accent" />
+                  <div className="flex items-start gap-4 p-4 rounded-lg hover:bg-secondary/40 transition-colors">
+                    <div className="w-14 h-14 bg-accent/10 rounded-lg flex items-center justify-center flex-shrink-0">
+                      <Clock className="w-6 h-6 text-accent" />
                     </div>
                     <div className="min-w-0">
                       <h4 className="font-medium text-sm md:text-base">Response Time</h4>
@@ -78,12 +71,12 @@ const Contact = () => {
                   </div>
                 </div>
               </div>
-              
+
               {/* Services Card */}
               <Card className="bg-card border-border">
-                <CardContent className="p-4 md:p-6">
+                <CardContent className="p-6 md:p-8">
                   <h4 className="font-semibold mb-3 text-sm md:text-base">What We Offer</h4>
-                  <ul className="space-y-2 text-xs md:text-sm text-muted-foreground">
+                  <ul className="space-y-2 text-sm md:text-base text-muted-foreground">
                     <li>• Custom web development and design</li>
                     <li>• Professional photography services</li>
                     <li>• Brand identity and marketing materials</li>
@@ -94,18 +87,18 @@ const Contact = () => {
               </Card>
             </div>
             
-            {/* Contact Form */}
+            {/* Contact Form - more spacious and elevated */}
             <Card className="bg-card border-border">
-              <CardContent className="p-6 md:p-8">
-                <h3 className="text-xl md:text-2xl font-semibold mb-4 md:mb-6">Start a Project</h3>
-                
-                <form className="space-y-4 md:space-y-6">
+              <CardContent className="p-6 md:p-10">
+                <h3 className="text-2xl md:text-3xl font-semibold mb-6">Start a Project</h3>
+
+                <form className="space-y-6">
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
                       <label className="text-xs md:text-sm font-medium mb-2 block">Name</label>
                       <Input 
                         placeholder="Your name" 
-                        className="bg-secondary border-border text-sm md:text-base h-10 md:h-11" 
+                        className="bg-secondary border-border text-sm md:text-base h-12 md:h-12 rounded-md px-3" 
                       />
                     </div>
                     <div>
@@ -113,7 +106,7 @@ const Contact = () => {
                       <Input 
                         type="email" 
                         placeholder="your@email.com" 
-                        className="bg-secondary border-border text-sm md:text-base h-10 md:h-11" 
+                        className="bg-secondary border-border text-sm md:text-base h-12 md:h-12 rounded-md px-3" 
                       />
                     </div>
                   </div>
@@ -122,13 +115,13 @@ const Contact = () => {
                     <label className="text-xs md:text-sm font-medium mb-2 block">Company</label>
                     <Input 
                       placeholder="Your company (optional)" 
-                      className="bg-secondary border-border text-sm md:text-base h-10 md:h-11" 
+                      className="bg-secondary border-border text-sm md:text-base h-12 md:h-12 rounded-md px-3" 
                     />
                   </div>
                   
                   <div>
                     <label className="text-xs md:text-sm font-medium mb-2 block">Project Type</label>
-                    <select className="w-full p-3 bg-secondary border border-border rounded-md text-sm md:text-base h-10 md:h-11">
+                    <select className="w-full p-3 bg-secondary border border-border rounded-md text-sm md:text-base h-12 md:h-12">
                       <option>Web Development</option>
                       <option>Graphic Design</option>
                       <option>Photography</option>
@@ -141,11 +134,11 @@ const Contact = () => {
                     <label className="text-xs md:text-sm font-medium mb-2 block">Message</label>
                     <Textarea 
                       placeholder="Tell us about your project..." 
-                      className="bg-secondary border-border min-h-[100px] md:min-h-[120px] text-sm md:text-base resize-none"
+                      className="bg-secondary border-border min-h-[140px] md:min-h-[160px] text-sm md:text-base resize-none rounded-md px-3 py-2"
                     />
                   </div>
                   
-                  <Button size="lg" className="w-full hover-lift h-11 md:h-12 text-sm md:text-base">
+                  <Button size="lg" className="w-full hover-lift h-12 md:h-14 text-sm md:text-base bg-accent text-accent-foreground">
                     Send Message
                     <Send className="ml-2 w-4 h-4 md:w-5 md:h-5" />
                   </Button>
@@ -154,7 +147,7 @@ const Contact = () => {
             </Card>
           </div>
         </div>
-      </section>
+      </ContentModule>
 
       <Footer />
     </div>

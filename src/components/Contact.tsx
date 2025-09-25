@@ -11,25 +11,19 @@ const Contact = () => {
     <div className="min-h-screen bg-background">
       <Navigation />
       
-      {/* Hero Section */}
-      <section className="pt-32 pb-16 bg-gradient-to-br from-background via-secondary/20 to-background">
+      {/* Combined Collaborate + Contact section (black background) */}
+      <section className="py-48 bg-background">
         <div className="container mx-auto px-4 md:px-6">
-          <div className="text-center mb-12 animate-fade-in">
+          <div className="text-center mb-12 animate-fade-in text-card-foreground">
             <h1 className="text-3xl md:text-5xl lg:text-6xl font-bold mb-4 md:mb-6 animate-slide-up">
               Let's <span className="text-accent">Collaborate</span>
             </h1>
-            <p className="text-base md:text-xl text-muted-foreground max-w-2xl mx-auto px-4 animate-fade-in" style={{animationDelay: '0.2s'}}>
-              Ready to bring your vision to life? Get in touch with our collective 
-              and let's create something extraordinary together.
+            <p className="text-base md:text-xl max-w-2xl mx-auto px-4 animate-fade-in" style={{animationDelay: '0.2s'}}>
+              Ready to bring your vision to life? Get in touch with our collective and let's create something extraordinary together.
             </p>
           </div>
-        </div>
-      </section>
 
-      {/* Main Content */}
-      <section className="py-12 md:py-24">
-        <div className="container mx-auto px-4 md:px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-start">
             
             {/* Contact Information */}
             <div className="space-y-8">

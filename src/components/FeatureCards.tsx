@@ -30,31 +30,30 @@ const FeatureCards = ({
             className={`bg-card border-border hover-lift group transition-all duration-300 ${cardClassName}`}
             data-testid={`feature-card-${index}`}
           >
-            <CardContent className="p-8">
-              <div className="flex items-center mb-6">
-                <div className="w-16 h-16 bg-accent/10 rounded-full flex items-center justify-center mr-4 group-hover:bg-accent/20 transition-colors">
-                  <IconComponent className={`w-8 h-8 ${feature.color || 'text-accent'}`} />
+            {/* Compact card layout for better scannability */}
+            <CardContent className="p-4">
+              <div className="flex items-start gap-4">
+                <div className="w-12 h-12 flex-shrink-0 bg-accent/10 rounded-lg flex items-center justify-center group-hover:bg-accent/20 transition-colors">
+                  <IconComponent className={`w-6 h-6 ${feature.color || 'text-accent'}`} />
                 </div>
-                <div>
-                  <h3 className="text-2xl font-bold mb-2" data-testid={`feature-title-${index}`}>
+                <div className="flex-1">
+                  <h3 className="text-lg font-semibold mb-1" data-testid={`feature-title-${index}`}>
                     {feature.title}
                   </h3>
-                  <p className="text-muted-foreground" data-testid={`feature-description-${index}`}>
+                  <p className="text-sm text-muted-foreground mb-2" data-testid={`feature-description-${index}`}>
                     {feature.description}
                   </p>
+                  {showFeatureList && feature.features && (
+                    <ul className="flex flex-wrap gap-2" data-testid={`feature-list-${index}`}>
+                      {feature.features.map((item, itemIndex) => (
+                        <li key={itemIndex} className="text-xs bg-muted px-2 py-1 rounded-md border border-border">
+                          {item}
+                        </li>
+                      ))}
+                    </ul>
+                  )}
                 </div>
               </div>
-              
-              {showFeatureList && feature.features && (
-                <ul className="space-y-3" data-testid={`feature-list-${index}`}>
-                  {feature.features.map((item, itemIndex) => (
-                    <li key={itemIndex} className="flex items-center gap-3">
-                      <Check className="w-5 h-5 text-accent flex-shrink-0" />
-                      <span className="text-sm">{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              )}
             </CardContent>
           </Card>
         );

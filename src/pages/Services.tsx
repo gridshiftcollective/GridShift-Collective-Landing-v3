@@ -69,20 +69,8 @@ const Services = () => {
         description="From concept to completion, we offer comprehensive creative services that bring your vision to life across all digital and traditional media."
       />
 
-      {/* Module 1: Services Grid */}
-      <ContentModule moduleIndex={1}>
-        <GridSection 
-          title={<>Our <span className="text-accent">Expertise</span></>}
-          description="We specialize in four core creative disciplines, each delivered by passionate experts who live and breathe their craft."
-          columns="2" 
-          gap="lg"
-        >
-          <FeatureCards features={services} showFeatureList={true} />
-        </GridSection>
-      </ContentModule>
-
-      {/* Module 2: Process Section */}
-      <ContentModule moduleIndex={2}>
+      {/* Module 1: Process Section (moved to precede Expertise) */}
+      <ContentModule moduleIndex={1} paddingClass="py-20 md:py-24">
         <GridSection 
           title="Our Process"
           description="Every project follows our proven methodology to ensure exceptional results and a smooth collaborative experience."
@@ -100,6 +88,18 @@ const Services = () => {
               </CardContent>
             </Card>
           ))}
+        </GridSection>
+      </ContentModule>
+
+      {/* Module 2: Services Grid (Expertise) */}
+      <ContentModule moduleIndex={2} paddingClass="py-20 md:py-24">
+        <GridSection 
+          title={<>Our <span className="text-accent">Expertise</span></>}
+          description="We identify businesses that need services to improve their audience reach, branding, and marketing through design, content creation, branding, and web design. Below are our focused areas delivered by dedicated experts."
+          columns="2" 
+          gap="lg"
+        >
+          <FeatureCards features={services} showFeatureList={true} cardClassName="p-4" />
         </GridSection>
       </ContentModule>
 

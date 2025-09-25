@@ -4,12 +4,12 @@ import { ArrowRight, Sparkles } from "lucide-react";
 const Hero = () => {
   return (
     // Center the hero content within the viewport minus the fixed header height
-    <section className="relative min-h-[calc(100vh-64px)] flex items-center justify-center pt-16 overflow-hidden bg-background">
+    <section className="relative min-h-[calc(100vh-64px)] flex items-center justify-center pt-16 overflow-hidden bg-background hero-gradient">
       {/* Animated grid background with loading effect */}
       {/* Grid pattern: reveal-only (no persistent transform) */}
       <div className="absolute inset-0 grid-pattern opacity-40 grid-reveal"></div>
       {/* Gradient layer: allow gentle drift separately so animations don't conflict */}
-      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/60 to-accent/5 bg-drift"></div>
+      <div className="absolute inset-0 bg-gradient-to-br from-transparent via-background/40 to-accent/6 bg-drift mix-blend-overlay"></div>
       
       {/* Floating geometric elements: larger squares positioned to the left and right of the hero (not centered behind text) */}
       <div className="hidden lg:block absolute top-1/3 hero-square-filled parallax-float z-0 pointer-events-none" style={{ left: 'calc(50% - 760px)', borderRadius: '20px' }}></div>
@@ -18,13 +18,12 @@ const Hero = () => {
       <div className="hidden lg:block absolute top-1/2 hero-square-outlined parallax-float z-0 pointer-events-none" style={{ right: 'calc(50% - 760px)', borderRadius: '14px', borderWidth: '4px' }}></div>
       
       <div className="container mx-auto px-6 lg:px-12 text-center relative z-10 max-w-5xl flex flex-col justify-center py-20">
-        {/* Logo with smooth reveal - enlarged and balanced */}
-        <div className="mb-6 lg:mb-8 smooth-reveal">
-          <img 
-            src="/logos/GridShift-Full-T v2.png" 
-            alt="GridShift" 
-            className="w-[60px] md:w-[100px] lg:w-[160px] xl:w-[220px] mx-auto opacity-95 hover:opacity-100 transition-all duration-500"
-            style={{ height: 'auto', marginTop: '20px' }}
+        {/* Logo with smooth reveal - enlarged and balanced (use responsive utility spacing) */}
+        <div className="mt-6 mb-6 lg:mb-8 smooth-reveal">
+          <img
+            src="/logos/GridShift-Full-T v2.png"
+            alt="GridShift"
+            className="w-16 md:w-24 lg:w-40 xl:w-56 mx-auto opacity-95 hover:opacity-100 transition-all duration-500"
           />
         </div>
         

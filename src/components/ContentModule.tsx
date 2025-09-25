@@ -5,20 +5,22 @@ interface ContentModuleProps {
   moduleIndex: number;
   className?: string;
   containerClassName?: string;
+  paddingClass?: string;
 }
 
 const ContentModule = ({ 
   children, 
   moduleIndex, 
   className = "", 
-  containerClassName = "container mx-auto px-6"
+  containerClassName = "container mx-auto px-6",
+  paddingClass = "py-16 md:py-20"
 }: ContentModuleProps) => {
-  // Alternate backgrounds: odd modules get muted background, even get background
+  // Alternate backgrounds: now odd modules use the darker background and even use muted (swap)
   const isOdd = moduleIndex % 2 === 1;
-  const bgClass = isOdd ? "bg-muted/50" : "bg-background";
+  const bgClass = isOdd ? "bg-background" : "bg-muted/50";
   
   return (
-    <section className={`py-16 md:py-20 ${bgClass} ${className}`} data-testid={`content-module-${moduleIndex}`}>
+    <section className={`${paddingClass} ${bgClass} ${className}`} data-testid={`content-module-${moduleIndex}`}>
       <div className={containerClassName}>
         {children}
       </div>

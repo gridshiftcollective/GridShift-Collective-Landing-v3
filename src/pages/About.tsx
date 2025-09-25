@@ -4,37 +4,10 @@ import { Badge } from "@/components/ui/badge";
 import Navigation from "@/components/Navigation";
 import Footer from "@/components/Footer";
 import PageHeader from "@/components/PageHeader";
+import ContentModule from "@/components/ContentModule";
+import { getAllMembers } from "@/lib/content/members";
 
-const teamMembers = [
-  {
-    name: "Ali Niavarani",
-    role: "Full-Stack Developer & Team Lead",
-    skills: ["React", "Node.js", "TypeScript", "UI/UX Design"],
-    bio: "Passionate about creating seamless digital experiences and leading collaborative development projects.",
-    image: "/placeholder.svg",
-  },
-  {
-    name: "Sarah Chen",
-    role: "Visual Designer & Photographer",
-    skills: ["Adobe Creative Suite", "Photography", "Brand Design", "Print Design"],
-    bio: "Specializes in brand identity and commercial photography with a keen eye for visual storytelling.",
-    image: "/placeholder.svg",
-  },
-  {
-    name: "Marcus Rodriguez",
-    role: "Frontend Developer",
-    skills: ["React", "Vue.js", "CSS", "Animation"],
-    bio: "Frontend specialist who brings designs to life with smooth animations and pixel-perfect implementations.",
-    image: "/placeholder.svg",
-  },
-  {
-    name: "Emma Thompson",
-    role: "Video Producer & Editor",
-    skills: ["Video Editing", "Motion Graphics", "Cinematography", "Storytelling"],
-    bio: "Creates compelling visual narratives through video production and post-production expertise.",
-    image: "/placeholder.svg",
-  },
-];
+const members = getAllMembers();
 
 const About = () => {
   return (
@@ -47,7 +20,7 @@ const About = () => {
       />
 
       {/* Our Philosophy */}
-      <section className="py-16 px-6">
+      <ContentModule moduleIndex={1} paddingClass="py-20 md:py-24" className="bg-background">
         <div className="container mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <div>
@@ -90,14 +63,14 @@ const About = () => {
             </div>
           </div>
         </div>
-      </section>
+      </ContentModule>
 
       {/* Team Members */}
       <section className="py-16 px-6 bg-muted/50">
         <div className="container mx-auto">
           <h2 className="text-3xl font-bold text-center mb-12">Meet Our Team</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {teamMembers.map((member, index) => (
+            {members.map((member, index) => (
               <Card key={index} className="overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="aspect-square bg-gradient-to-br from-accent/10 to-accent/5 flex items-center justify-center">
                   <Users className="w-16 h-16 text-accent/50" />

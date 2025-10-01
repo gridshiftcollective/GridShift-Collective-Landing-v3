@@ -1,9 +1,6 @@
 ---
-alwaysApply: true
-description: "Global MCP summaries and usage notes for the project's MCP servers. Add brief purpose and usage guidance for each MCP used in this repo."
-globs: *.md
+alwaysApply: false
 ---
-
 ### MCP Global Summary
 
 This file centralizes short-purpose summaries and usage instructions for active MCP servers referenced in the repository. Each MCP entry should include: purpose, when to use it, quick-start sequence using MCP tools (no shell commands), and links to any detailed rule files under `.cursor/rules/`.

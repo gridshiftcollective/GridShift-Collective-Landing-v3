@@ -1,6 +1,4 @@
 ---
-description: "Map Playwright actions and common CLI workflows to MCP Playwright tools; no shell commands included. Use this rule when converting CLI-based Playwright flows into MCP tool sequences."
-globs: *.html
 alwaysApply: false
 ---
 ### MCP Playwright — Navigation & Action Mapping

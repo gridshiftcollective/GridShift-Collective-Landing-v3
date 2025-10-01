@@ -2,7 +2,7 @@
 set -e
 
 # Simple push script for GridShift repo (not submodule-aware)
-REPO_DIR="/home/GridShift-Collective-Landing-v2"
+REPO_DIR="/home/GridShift-Collective-Landing-v3"
 PAT_FILE="$(dirname "$(readlink -f "$0")")/.github_pat"
 GITHUB_PAT=
 if [ -f "$PAT_FILE" ]; then

@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { LOGO_MARK } from "@/lib/paths";
 
 const Navigation = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -28,7 +29,7 @@ const Navigation = () => {
           {/* Logo */}
           <Link href="/" className="flex items-center">
             <img
-              src="/logos/GridShift-Mark-T%20v2.png"
+              src={LOGO_MARK}
               alt="GridShift Logo"
               className="h-8 md:h-10"
             />

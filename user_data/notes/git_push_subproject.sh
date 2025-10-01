@@ -21,7 +21,7 @@ fi
 cd "$REPO_DIR" || { echo "Repo not found: $REPO_DIR"; exit 1; }
 
 echo "Staging changes..."
-git add -A
+git add .
 
 # If PAT present, create temporary askpass so git commands are non-interactive
 if [ -n "$GITHUB_PAT" ]; then

@@ -9,6 +9,10 @@ export default defineConfig(({ mode }) => ({
     host: "::",
     port: 5000,
     allowedHosts: true,
+    watch: {
+      ignored: ['**/node_modules/**', '**/.cache/**', '**/dist/**'],
+      usePolling: false,
+    },
   },
   plugins: [react(), mode === "development" && componentTagger()].filter(
     Boolean,

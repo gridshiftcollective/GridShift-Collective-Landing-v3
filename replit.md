@@ -53,6 +53,14 @@ Preferred communication style: Simple, everyday language.
 
 **Asset Management**: Static assets organized in public directory with optimized images and custom font files.
 
+**Media Viewing System**: Comprehensive media gallery supporting multiple formats:
+- **Images**: Displayed in responsive grid with fullscreen lightbox viewing, zoom controls, and captions
+- **Videos**: Full video playback with seeking controls, timeline scrubbing, and fullscreen mode
+- **PDFs**: Dedicated viewer modal with page navigation, zoom controls, and download functionality
+- Implementation uses yet-another-react-lightbox for images/videos and react-pdf for PDF documents
+- Portfolio markdown files support media arrays with type, src, caption, and alt text metadata
+- Located in `src/components/ProjectMediaSection.tsx` and `src/components/PDFViewer.tsx`
+
 ### Development Workflow
 
 **Code Quality**: ESLint configuration with TypeScript rules and React-specific linting.
@@ -105,6 +113,15 @@ Preferred communication style: Simple, everyday language.
 - **date-fns**: Date manipulation and formatting utilities
 - **Embla Carousel**: Carousel/slider functionality
 - **Sonner & Radix Toast**: Toast notification systems
+
+### Media & Document Viewing
+- **yet-another-react-lightbox**: Modern lightbox library for images and videos with plugin support
+  - Video plugin: Full video playback with controls and seeking
+  - Zoom plugin: Image zoom and pan capabilities
+  - Fullscreen plugin: Fullscreen viewing mode
+  - Captions plugin: Display captions and metadata
+- **react-pdf**: PDF rendering in React with page navigation
+- **pdfjs-dist**: Mozilla's PDF.js library for PDF parsing and rendering
 
 ### Font Resources
 - **Custom Fonts**: Utendo and Afacad font families hosted locally

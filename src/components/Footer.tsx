@@ -9,7 +9,7 @@ const Footer = () => {
           {/* Brand */}
           <div className="md:col-span-2">
             <img 
-              src="/logos/GridShift-Type-T%20v2.png" 
+              src="/media/brand/logos/GridShift-Type-T%20v2.png" 
               alt="GridShift Logo" 
               className="h-12 md:h-16 mb-4"
             />

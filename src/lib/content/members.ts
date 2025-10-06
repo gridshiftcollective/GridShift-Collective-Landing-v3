@@ -34,7 +34,7 @@ export type Member = {
   };
 };
 
-const memberModules = import.meta.glob<Member>('/src/content/team/*.json', { eager: true });
+const memberModules = import.meta.glob<Member>('/public/media/content/team/*/*.json', { eager: true });
 
 export function getAllMembers(): Member[] {
   return Object.values(memberModules)

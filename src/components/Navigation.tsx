@@ -25,7 +25,7 @@ const Navigation = () => {
           {/* Logo */}
           <Link to="/" className="flex items-center">
             <img 
-              src="/logos/GridShift-Mark-T%20v2.png" 
+              src="/media/brand/logos/GridShift-Mark-T%20v2.png" 
               alt="GridShift Logo" 
               className="h-8 md:h-10"
             />

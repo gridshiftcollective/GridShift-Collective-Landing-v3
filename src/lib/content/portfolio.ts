@@ -15,6 +15,13 @@ export type ProjectMeta = {
   authors?: string[];
   image?: string;
   gallery?: string[];
+  media?: Array<{
+    type: "image" | "video";
+    src: string;
+    caption?: string;
+    poster?: string;
+    sources?: Array<{ src: string; type: string }>;
+  }>;
   links?: {
     site?: string;
     repo?: string;
@@ -36,7 +43,8 @@ export type ProjectMeta = {
   };
 };
 
-const projectRawModules = import.meta.glob('/src/content/portfolio/*.md', { as: 'raw', eager: true });
+// Collect project markdowns from the canonical src/content location
+const projectRawModules = import.meta.glob('/src/content/portfolio/*/*.md', { query: '?raw', eager: true, import: 'default' });
 
 function parseYAML(yamlString: string): Record<string, any> {
   const lines = yamlString.split('\n');
@@ -50,17 +58,30 @@ function parseYAML(yamlString: string): Record<string, any> {
 
     if (!trimmedLine || trimmedLine.startsWith('#')) continue;
 
-    // Check for nested object start (key:)
+    // Check for nested object start (key:) or array of objects start (key:)
     if (trimmedLine.endsWith(':') && !trimmedLine.includes(' ')) {
       const key = trimmedLine.slice(0, -1);
+      // If next non-empty line starts with '-', treat as array of objects
+      let j = i + 1;
+      while (j < lines.length && lines[j].trim() === '') j++;
+      if (j < lines.length && lines[j].trim().startsWith('-')) {
+        // Initialize as array and prepare to collect objects
+        result[key] = [];
+        currentKey = key;
+        currentObject = null; // we will create per '-'
+        continue;
+      }
+
       currentObject = {};
       result[key] = currentObject;
       currentKey = key;
       continue;
     }
 
-    // Check for indented nested properties
-    if (currentObject && line.startsWith('  ') && trimmedLine.includes(':')) {
+    // Check for indented nested properties (object entries)
+    if ((currentObject && line.startsWith('  ') && trimmedLine.includes(':')) ||
+        // Or we are within an array of objects and the line is indented nested property
+        (currentKey && Array.isArray(result[currentKey]) && line.startsWith('  ') && trimmedLine.includes(':'))) {
       const colonIndex = trimmedLine.indexOf(':');
       const nestedKey = trimmedLine.substring(0, colonIndex).trim();
       let nestedValue = trimmedLine.substring(colonIndex + 1).trim();
@@ -72,14 +93,20 @@ function parseYAML(yamlString: string): Record<string, any> {
       }
 
       // Parse nested values
-      if (nestedValue === 'true') {
-        currentObject![nestedKey] = true;
-      } else if (nestedValue === 'false') {
-        currentObject![nestedKey] = false;
-      } else if (!isNaN(Number(nestedValue)) && nestedValue !== '') {
-        currentObject![nestedKey] = Number(nestedValue);
-      } else {
-        currentObject![nestedKey] = nestedValue;
+      const parsedValue = (nestedValue === 'true') ? true
+        : (nestedValue === 'false') ? false
+        : (!isNaN(Number(nestedValue)) && nestedValue !== '') ? Number(nestedValue)
+        : nestedValue;
+
+      if (currentObject) {
+        currentObject![nestedKey] = parsedValue;
+      } else if (currentKey && Array.isArray(result[currentKey])) {
+        // Ensure there's a current object to attach nested properties to
+        let arr = result[currentKey] as any[];
+        if (arr.length === 0) {
+          arr.push({});
+        }
+        arr[arr.length - 1][nestedKey] = parsedValue;
       }
       continue;
     }
@@ -88,6 +115,27 @@ function parseYAML(yamlString: string): Record<string, any> {
     if (currentObject && !line.startsWith('  ')) {
       currentObject = null;
       currentKey = '';
+    }
+
+    // Handle array item start like '- key: value' or '-'
+    if (currentKey && Array.isArray(result[currentKey]) && trimmedLine.startsWith('-')) {
+      // Start a new object in the array
+      const arr = result[currentKey] as any[];
+      const rest = trimmedLine.slice(1).trim();
+      if (rest === '') {
+        arr.push({});
+      } else if (rest.includes(':')) {
+        // inline '- key: value'
+        const colonIndex = rest.indexOf(':');
+        const k = rest.substring(0, colonIndex).trim();
+        let v = rest.substring(colonIndex + 1).trim();
+        if ((v.startsWith('"') && v.endsWith('"')) || (v.startsWith("'") && v.endsWith("'"))) {
+          v = v.slice(1, -1);
+        }
+        const parsedV = (v === 'true') ? true : (v === 'false') ? false : (!isNaN(Number(v)) && v !== '') ? Number(v) : v;
+        arr.push({ [k]: parsedV });
+      }
+      continue;
     }
 
     // Parse regular top-level properties
@@ -136,14 +184,36 @@ function parseProject(raw: string): { frontmatter: ProjectMeta; body: string } {
 
   const data = parseYAML(frontmatterYAML);
 
+  // Validate and enhance media array
+  if (data.media && Array.isArray(data.media)) {
+    data.media = data.media.filter(item =>
+      item && (item.type === 'image' || item.type === 'video') && item.src
+    );
+  }
+
+  // Attach the raw markdown body so consumers can render the project description
+  (data as any).body = body;
+
   return { frontmatter: data as ProjectMeta, body };
 }
 
 export function getAllProjects(): ProjectMeta[] {
-  return Object.values(projectRawModules)
+  const projects = Object.values(projectRawModules)
     .map((raw: any) => parseProject(raw as string).frontmatter)
     .filter((p) => !p.draft && !p.hidden)
     .sort((a, b) => (b.order ?? 0) - (a.order ?? 0) || (b.date ?? '').localeCompare(a.date ?? ''));
+
+  // Runtime debug: print detected project slugs to the browser console so we can verify
+  if (typeof window !== 'undefined' && window.console && projects) {
+    try {
+      // eslint-disable-next-line no-console
+      console.log('getAllProjects():', projects.map((p) => p.slug));
+    } catch (e) {
+      // ignore
+    }
+  }
+
+  return projects;
 }
 
 export function getHomeProjects(limit = 3): ProjectMeta[] {

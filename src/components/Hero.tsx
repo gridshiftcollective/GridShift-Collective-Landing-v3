@@ -21,7 +21,7 @@ const Hero = () => {
         {/* Logo with smooth reveal - enlarged and balanced (use responsive utility spacing) */}
         <div className="mt-6 mb-6 lg:mb-8 smooth-reveal">
           <img
-            src="/logos/GridShift-Full-T v2.png"
+            src="/media/brand/logos/GridShift-Full-T v2.png"
             alt="GridShift"
             className="w-16 md:w-24 lg:w-40 xl:w-56 mx-auto opacity-95 hover:opacity-100 transition-all duration-500"
           />

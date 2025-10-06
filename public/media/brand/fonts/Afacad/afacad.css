@@ -1,0 +1,18 @@
+/* Afacad Variable Font Family */
+@font-face {
+  font-family: 'Afacad';
+  font-style: normal;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/Afacad/Afacad-VariableFont_wght.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Afacad';
+  font-style: italic;
+  font-weight: 100 900;
+  font-display: swap;
+  src: url('/fonts/Afacad/Afacad-Italic-VariableFont_wght.ttf') format('truetype');
+}
+
+

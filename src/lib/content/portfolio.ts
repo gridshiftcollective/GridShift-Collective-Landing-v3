@@ -16,7 +16,7 @@ export type ProjectMeta = {
   image?: string;
   gallery?: string[];
   media?: Array<{
-    type: "image" | "video";
+    type: "image" | "video" | "pdf";
     src: string;
     caption?: string;
     poster?: string;
@@ -187,7 +187,7 @@ function parseProject(raw: string): { frontmatter: ProjectMeta; body: string } {
   // Validate and enhance media array
   if (data.media && Array.isArray(data.media)) {
     data.media = data.media.filter(item =>
-      item && (item.type === 'image' || item.type === 'video') && item.src
+      item && (item.type === 'image' || item.type === 'video' || item.type === 'pdf') && item.src
     );
   }
 

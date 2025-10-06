@@ -1,5 +1,5 @@
 export interface MediaItem {
-  type: "image" | "video";
+  type: "image" | "video" | "pdf";
   src: string;
   caption?: string;
   poster?: string;
@@ -9,7 +9,7 @@ export interface MediaItem {
 }
 
 export interface LightboxSlide {
-  type?: "image" | "video";
+  type?: "image" | "video" | "pdf";
   src: string;
   alt?: string;
   caption?: string;

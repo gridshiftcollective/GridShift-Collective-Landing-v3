@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import Lightbox from 'yet-another-react-lightbox';
+import Lightbox, { SlideImage, SlideVideo } from 'yet-another-react-lightbox';
 import Video from 'yet-another-react-lightbox/plugins/video';
 import Zoom from 'yet-another-react-lightbox/plugins/zoom';
 import Fullscreen from 'yet-another-react-lightbox/plugins/fullscreen';
 import Captions from 'yet-another-react-lightbox/plugins/captions';
 import 'yet-another-react-lightbox/styles.css';
 import 'yet-another-react-lightbox/plugins/captions.css';
-import { MediaItem, LightboxSlide } from '../types/portfolio';
+import { MediaItem } from '../types/portfolio';
 import { PDFViewer } from './PDFViewer';
 
 interface ProjectMediaSectionProps {
@@ -21,14 +21,21 @@ export function ProjectMediaSection({ media, projectSlug }: ProjectMediaSectionP
   const [currentPdfUrl, setCurrentPdfUrl] = useState<string>('');
 
   const nonPdfMedia = media.filter(item => item.type !== 'pdf');
-  const slides: LightboxSlide[] = nonPdfMedia.map(item => ({
-    type: item.type,
-    src: item.src,
-    caption: item.caption,
-    poster: item.poster,
-    sources: item.sources,
-    alt: item.alt || item.caption || `Media ${media.indexOf(item) + 1}`
-  }));
+  const slides: (SlideImage | SlideVideo)[] = nonPdfMedia.map(item => {
+    if (item.type === 'video') {
+      return {
+        type: 'video' as const,
+        sources: item.sources || [{ src: item.src, type: 'video/mp4' }],
+        poster: item.poster,
+        description: item.caption,
+      };
+    }
+    return {
+      src: item.src,
+      alt: item.alt || item.caption || `Media ${media.indexOf(item) + 1}`,
+      description: item.caption,
+    };
+  });
 
   const openLightbox = (index: number) => {
     const mediaItem = media[index];
@@ -163,7 +170,6 @@ export function ProjectMediaSection({ media, projectSlug }: ProjectMediaSectionP
         }}
         controller={{
           closeOnBackdropClick: true,
-          closeOnEsc: true,
         }}
         animation={{ swipe: 250 }}
       />

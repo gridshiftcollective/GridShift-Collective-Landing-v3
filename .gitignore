@@ -23,3 +23,9 @@ user_data/
 *.sln
 *.sw?
 user_data/notes/.github_pat
+node_modules
+public/media/.originals
+user_data/notes/.github_pat
+dist
+deps
+user_data/
